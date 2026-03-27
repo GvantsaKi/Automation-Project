@@ -8,7 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BasePage {
 
-    //Elements with pageFactory + FindBy
+    /**
+     * Elements with PageFactory + FindBy
+     */
     @FindBy(xpath = "//span[text()='Dashboard']")
     WebElement homeHeaderText;
 
@@ -30,7 +32,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text()='Settings']")
     WebElement settingsButton;
 
-    @FindBy(xpath = "//span[text()='New']") // simple and stable
+    @FindBy(xpath = "//span[normalize-space()='New']")
     WebElement newRepoButton;
 
     @FindBy(xpath = "//button[@aria-haspopup='dialog' and contains(@class,'appHeaderButton')]")
@@ -40,55 +42,89 @@ public class HomePage extends BasePage {
     WebElement issuesLink;
 
 
-    //constructor
+    /**
+     * Constructor for HomePage
+     * Initializes web elements using PageFactory
+     *
+     * @param driver WebDriver used to control the browser
+     */
     public HomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    // Gets title text for login test validation
+    /**
+     * Returns the main header text on the home page
+     * Useful for validating successful login
+     *
+     * @return home page header text
+     */
     public String getHomeHeaderText() {
         return getText(homeHeaderText);
 
     }
 
-    // Gets another title text for login test validation
+    /**
+     * Returns the title text on the home page
+     * Useful for validating successful login
+     *
+     * @return home page title text
+     */
     public String getHomeTitleText() {
         return getText(homeTitle);
     }
 
 
-    // Code for logout test
+    /**
+     * Performs logout from the platform by clicking
+     * avatar, sign out and confirming sign out
+     */
     public void logout() {
         click(avatarIcon);
         click(signOutButton);
         click(confirmSignOutButton);
     }
 
-    // Gets text for logout test validation
+    /**
+     * Returns the "Sign up for GitHub" text
+     * Useful for validating that logout was successful
+     *
+     * @return text of the sign up element
+     */
     public String getSignUpText() {
         return getText(signUpText);
     }
 
-    // Code for user profile update test
+    /**
+     * Navigates to the Settings page via user avatar
+     * Used for profile update
+     */
     public void goToSettings() {
         click(avatarIcon);
         click(settingsButton);
     }
 
-    // Click action for making new repository test
+    /**
+     * Clicks the "Create repository" button to start creating a new repository
+     * Used in repository creation tests
+     */
     public void goToNewRepository() {
         click(newRepoButton);
     }
 
-    // Click menu action for issues test
+    /**
+     * Opens the main menu by clicking the menu icon
+     * Used before navigating to other sections like Issues
+     */
     public void openMenu() {
-        click(menuIcon); // reuse BasePage.click (waits + logs)
+        click(menuIcon);
     }
 
-    // Click issues action for issues test
+    /**
+     * Navigates to the Issues page by clicking the Issues link
+     */
     public void goToIssues() {
-        click(issuesLink); // click Issues link
+        click(issuesLink);
     }
 
 

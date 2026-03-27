@@ -10,39 +10,67 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * BasePage class contains common methods for all pages
+ * Other page classes (like LoginPage, HomePage) will extend this class
+ */
 public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
+    /**
+     * Constructor initializes WebDriver and WebDriverWait for page actions
+     *
+     * @param driver WebDriver
+     */
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigReader.getLong("wait")));
         PageFactory.initElements(driver, this);
     }
 
-    // Refreshes page, is used in login test
+    /**
+     * Refreshes the current page
+     */
     public void refreshPage() {
         driver.navigate().refresh();
     }
 
-    // Gets current url, used in tests for assertion
+    /**
+     * Returns the current page URL
+     *
+     * @return URL as String
+     */
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    // Waits for element to be visible
+    /**
+     * Waits until the element is visible on the page
+     *
+     * @param locator WebElement to wait for
+     */
     public void waitForElementToBeVisible(WebElement locator) {
         wait.until(ExpectedConditions.visibilityOf(locator));
 
     }
 
-    // Waits for element to be clickable
+    /**
+     * Waits until the element is clickable
+     *
+     * @param locator WebElement to wait for
+     */
     public void waitForElementToBeClickable(WebElement locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
 
     }
 
-    // Fills in input fields and logs in reports
+    /**
+     * Types text into the input field and logs it in the report
+     *
+     * @param locator WebElement input field
+     * @param text    Text to enter
+     */
     public void sendKeys(WebElement locator, String text) {
         waitForElementToBeVisible(locator);
         locator.sendKeys(text);
@@ -51,7 +79,11 @@ public abstract class BasePage {
 
     }
 
-    // Clicks on element, logs
+    /**
+     * Clicks on an element and logs it in the report
+     *
+     * @param locator WebElement to click
+     */
     public void click(WebElement locator) {
         waitForElementToBeClickable(locator);
         locator.click();
@@ -60,16 +92,15 @@ public abstract class BasePage {
 
     }
 
-    // Gets text and logs in reports
+    /**
+     * Gets text from an element and logs it in the report
+     *
+     * @param locator WebElement to read
+     * @return Text of the element
+     */
     public String getText(WebElement locator) {
         waitForElementToBeVisible(locator);
         Utils.logInfo("get text from: " + locator.getText());
         return locator.getText();
     }
-
-    // for error invalid case. Temporary. Might remove later
-    public void waitForTextVisibleAndNotEmpty(WebElement element) {
-        wait.until(d -> element.isDisplayed() && !element.getText().trim().isEmpty());
-    }
-
 }

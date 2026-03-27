@@ -6,10 +6,20 @@ import org.example.pages.LoginPage;
 import org.example.utils.ConfigReader;
 import org.testng.annotations.Test;
 
+/**
+ * Tests related to GitHub login and logout functionality
+ * Covers valid login, invalid login and logout scenarios
+ */
 public class LoginTest extends BaseTest {
 
 
-    // This test will check the valid login
+    /**
+     * Test verifies that a user can login successfully with valid credentials
+     * Steps:
+     * 1. Enter valid username and password
+     * 2. Refresh page to ensure user stays logged in
+     * 3. Assert that homepage header and title are correct
+     */
     @Test
     public void testValidLogin() {
         LoginPage loginPage = new LoginPage(driver);
@@ -30,7 +40,13 @@ public class LoginTest extends BaseTest {
 
     }
 
-    // This test will check the invalid login
+    /**
+     * Test verifies that login fails with invalid credentials
+     * Steps:
+     * 1. Enter wrong username and password
+     * 2. Assert that the error message is displayed
+     * 3. Assert that the user stays on the login page
+     */
     @Test
     public void testInvalidLogin() {
         LoginPage loginPage = new LoginPage(driver);
@@ -42,9 +58,16 @@ public class LoginTest extends BaseTest {
         assertString(loginPage.getErrorMessageText(), "Incorrect username or password.");
 
         // Asserts that the user stays on the same page, login
-        assertString(driver.getCurrentUrl(), "https://github.com/session");
+        assertString(loginPage.getCurrentUrl(), "https://github.com/session");
     }
 
+    /**
+     * Test verifies that a user can logout successfully
+     * Steps:
+     * 1. Login with valid credentials
+     * 2. Logout from homepage
+     * 3. Assert that the homepage URL and text indicate the user is logged out
+     */
     @Test
     public void testLogout() {
         LoginPage loginPage = new LoginPage(driver);

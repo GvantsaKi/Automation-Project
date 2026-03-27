@@ -8,25 +8,40 @@ import org.openqa.selenium.support.PageFactory;
 
 public class IssuesPage extends BasePage {
 
-    //Elements with pageFactory + FindBy
+    /**
+     * Elements with PageFactory + FindBy
+     */
     @FindBy(xpath = "//span[text()='Created by me']")
     WebElement createdByMeFilter;
 
     @FindBy(xpath = "//h1[text()='Created by me']")
     WebElement createdByMeTitle;
 
-
+    /**
+     * Constructor for IssuesPage
+     * Initializes web elements using PageFactory
+     *
+     * @param driver WebDriver used to control the browser
+     */
     public IssuesPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    // Clicks on created by me filter on issues page
+    /**
+     * Clicks the "Created by me" filter on the Issues page
+     * Used to display issues created by the logged-in user
+     */
     public void filterCreatedByMe() {
         click(createdByMeFilter);
     }
 
-    // Gets the text for issues test validation
+    /**
+     * Returns the title text of the "Created by me" section
+     * Useful for validating that the filter worked correctly
+     *
+     * @return text of the "Created by me" title
+     */
     public String getCreatedByMeTitle() {
         return getText(createdByMeTitle);
     }

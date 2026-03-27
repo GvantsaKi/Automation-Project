@@ -7,6 +7,14 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ConfigReader {
+
+    /**
+     * Reads a value from config.properties using a key
+     * Returns null if the file or the key does not exist
+     *
+     * @param key property name (for example, "base.url", "wait")
+     * @return property value or null
+     */
     private static String read(String key) {
         Properties properties = new Properties();
         try {
@@ -19,11 +27,24 @@ public class ConfigReader {
 
     }
 
+    /**
+     * Gets a property value as String
+     *
+     * @param key property name
+     * @return property value as String
+     */
     public static String get(String key) {
         return read(key);
 
     }
 
+    /**
+     * Gets a property value as Long
+     * Used for values like wait time
+     *
+     * @param key property name (for example, "wait")
+     * @return property value as Long
+     */
     public static Long getLong(String key) {
         return Long.parseLong(read(key));
 

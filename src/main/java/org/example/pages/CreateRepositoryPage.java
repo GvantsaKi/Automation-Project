@@ -8,33 +8,44 @@ import org.openqa.selenium.support.PageFactory;
 
 public class CreateRepositoryPage extends BasePage {
 
-    //Elements with pageFactory + FindBy
+    /**
+     * Elements with PageFactory + FindBy
+     */
     @FindBy(id = "repository-name-input")
     WebElement repoNameField;
 
     @FindBy(xpath = "//button[.//span[text()='Create repository']]")
     WebElement createRepoButton;
 
+    @FindBy(id = "RepoNameInput-is-available")
+    WebElement repoNameInputIsAvailable;
 
-    // Constructor
+
+    /**
+     * Constructor for CreateRepositoryPage
+     * Initializes web elements using PageFactory
+     *
+     * @param driver WebDriver used to control the browser
+     */
     public CreateRepositoryPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-
-    // Enters repository name
+    /**
+     * Enters the given repository name into the repository name input field
+     *
+     * @param repoName name of the repository to create
+     */
     public void enterRepositoryName(String repoName) {
         sendKeys(repoNameField, repoName);
     }
 
-    // Clicks create repository button
+    /**
+     * Clicks the "Create repository" button after ensuring the repository name input is validated and available
+     */
     public void clickCreateRepository() {
+        waitForElementToBeVisible(repoNameInputIsAvailable);
         click(createRepoButton);
-    }
-
-    // Gets the created repository name
-    public String getTypedRepositoryName() {
-        return repoNameField.getAttribute("value");
     }
 }

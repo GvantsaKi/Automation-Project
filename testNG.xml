@@ -4,30 +4,34 @@
         <listener class-name="org.example.utils.TestListener"/>
     </listeners>
 
-    <test name="login test">
+    <test name="login Test">
         <classes>
             <class name="org.example.tests.LoginTest"/>
         </classes>
     </test>
 
-
-    <test name="Profile update test">
+    <test name="Profile Update test">
         <classes>
             <class name="org.example.tests.ProfileTest"/>
         </classes>
     </test>
 
-    <test name="New Repository test">
+    <test name="Repository Tests">
         <classes>
             <class name="org.example.tests.RepositoryTest"/>
         </classes>
     </test>
 
-    <test name="Issues page test">
+    <test name="Issues page Test">
         <classes>
             <class name="org.example.tests.IssuesTest"/>
         </classes>
     </test>
 
+    <test name="Private Repository Tests">
+        <classes>
+            <class name="org.example.tests.PrivateRepository"/>
+        </classes>
+    </test>
 
 </suite>

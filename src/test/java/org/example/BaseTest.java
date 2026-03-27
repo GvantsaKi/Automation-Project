@@ -8,12 +8,18 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-
+/**
+ * BaseTest class provides setup, teardown and assertion methods for all tests
+ * All test classes should extend this class to reuse WebDriver, assertion and logging
+ */
 public class BaseTest {
     protected WebDriver driver;
 
 
-    // Code which will run before every test
+    /**
+     * Sets up WebDriver before every test
+     * Opens the browser, maximizes window and navigates to the base URL
+     */
     @BeforeMethod
     public void setUp() {
         driver = DriverManager.getDriver();
@@ -23,14 +29,21 @@ public class BaseTest {
 
     }
 
-    // Code which will run after every test
+    /**
+     * Quits WebDriver after every test to close the browser
+     */
     @AfterMethod
     public void tearDown() {
         DriverManager.quit();
 
     }
 
-    // Assertion which will be used in tests
+    /**
+     * Asserts that actual string matches expected string and logs the assertion
+     *
+     * @param act actual string value
+     * @param exp expected string value
+     */
     public void assertString(String act, String exp) {
         Assert.assertEquals(act, exp, "custom error message");
         Utils.logInfo("*ASSERTION*: act: [ " + act + " ] exp: [ " + exp + " ] ");
