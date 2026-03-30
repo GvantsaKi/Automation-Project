@@ -41,7 +41,7 @@ public class ApiTest {
         headers.put("Authorization", "Bearer simpleString");
 
         // Filter product by price
-        Response response = ApiManager.get("/products?price=100", headers, 200);
+        Response response = ApiManager.get("/products/?price=50", headers, 200);
 
         // Assert HTTP status code
         Assert.assertFalse(response.jsonPath().getList("$").isEmpty());
